@@ -228,4 +228,55 @@ Console.WriteLine();
 FindMin(myarray, m, n);
 */
 
-// Вывести первые N строк треугольника Паскаля. Сделать вывод в виде равнобедренного треугольника
+// Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива.
+/*
+int[,] GenerateRandomArray(int l, int k)
+{
+    int[,] array = new int[l, k];
+    for (int i = 0; i < l; i++)
+    {
+        for (int j = 0; j < k; j++)
+        {
+            array[i, j] = new Random().Next(1, 11);
+        }
+    }
+    return array;
+}
+void ShowArray(int[,] array)
+{
+    for (int row = 0; row < array.GetLength(0); row++)
+    {
+        for (int column = 0; column < array.GetLength(1); column++)
+        {
+            Console.Write(array[row, column] + " ");
+        }
+        Console.WriteLine();
+    }
+}
+void FromMaxToMin(int[,] array, int l, int k)
+{
+   for (int i = 0; i < array.GetLength(0); i++)
+   {
+        int min = array[i,0];
+        for (int j = 1; j < array.GetLength(1); j++)
+        {
+            while (array[i,j-1] < array[i,j])
+            {
+                min = array[i,j-1];
+                array[i,j-1] = array[i,j];
+                array[i,j] = min;
+            }
+        }
+   }
+}
+
+Console.Write("Введите кол-во сток таблицы: ");
+int m = Convert.ToInt32(Console.ReadLine());
+Console.Write("Введите кол-во стобцов таблицы: ");
+int n = Convert.ToInt32(Console.ReadLine());
+int[,] myarray = GenerateRandomArray(m, n);
+ShowArray(myarray);
+Console.WriteLine();
+FromMaxToMin(myarray, m, n);
+ShowArray(myarray);
+*/
