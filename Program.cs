@@ -257,14 +257,15 @@ void FromMaxToMin(int[,] array, int l, int k)
 {
    for (int i = 0; i < array.GetLength(0); i++)
    {
-        int min = array[i,0];
-        for (int j = 1; j < array.GetLength(1); j++)
+        int max = array[i,0];
+        for (int j = 0; j > array.GetLength(1); j++)
         {
-            while (array[i,j-1] < array[i,j])
+            if (max < array[i,j])
             {
-                min = array[i,j-1];
                 array[i,j-1] = array[i,j];
-                array[i,j] = min;
+                array[i,j] = max;
+                max = array[i,j];
+               
             }
         }
    }
@@ -280,3 +281,108 @@ Console.WriteLine();
 FromMaxToMin(myarray, m, n);
 ShowArray(myarray);
 */
+
+// Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
+/*
+int[,] GenerateRandomArray(int l, int k)
+{
+    int[,] array = new int[l, k];
+    for (int i = 0; i < l; i++)
+    {
+        for (int j = 0; j < k; j++)
+        {
+            array[i, j] = new Random().Next(1, 11);
+        }
+    }
+    return array;
+}
+void ShowArray(int[,] array)
+{
+    for (int row = 0; row < array.GetLength(0); row++)
+    {
+        for (int column = 0; column < array.GetLength(1); column++)
+        {
+            Console.Write(array[row, column] + " ");
+        }
+        Console.WriteLine();
+    }
+}
+void FindMinSum(int[,] array)
+{
+   int[] sum = new int[array.GetLength(0)];
+   for (int i = 0; i < array.GetLength(0); i++)
+   {
+       for (int j = 0; j < array.GetLength(1); j++)
+       {
+            sum[i] = sum[i] + array[i,j];
+       }
+       Console.WriteLine(sum[i]);
+   }
+    int min = 0;
+   for (int i = 0; i < sum.Length; i++)
+   {
+        if (sum[i] < sum[min])
+        {
+            min = i;
+        }
+   }
+   Console.WriteLine(min);
+}
+
+Console.Write("Введите кол-во сток таблицы: ");
+int m = Convert.ToInt32(Console.ReadLine());
+Console.Write("Введите кол-во стобцов таблицы: ");
+int n = Convert.ToInt32(Console.ReadLine());
+int[,] myarray = GenerateRandomArray(m, n);
+ShowArray(myarray);
+Console.WriteLine();
+FindMinSum(myarray);
+*/
+
+// Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
+
+int[,] GenerateRandomArray(int l, int k)
+{
+    int[,] array = new int[l, k];
+    for (int i = 0; i < l; i++)
+    {
+        for (int j = 0; j < k; j++)
+        {
+            array[i, j] = new Random().Next(1, 11);
+        }
+    }
+    return array;
+}
+void ShowArray(int[,] array)
+{
+    for (int row = 0; row < array.GetLength(0); row++)
+    {
+        for (int column = 0; column < array.GetLength(1); column++)
+        {
+            Console.Write(array[row, column] + " ");
+        }
+        Console.WriteLine();
+    }
+}
+void ArraySum(int[,] firstArray, int[,] secondArray)
+{
+   if (firstArray.GetLength(0) != secondArray.GetLength(0) || firstArray.GetLength(1) != secondArray.GetLength(1))
+   {
+    Console.WriteLine("Произведение найти не возможно");
+   }
+}
+
+Console.Write("Введите кол-во сток таблицы: ");
+int m = Convert.ToInt32(Console.ReadLine());
+Console.Write("Введите кол-во стобцов таблицы: ");
+int n = Convert.ToInt32(Console.ReadLine());
+int[,] myarray = GenerateRandomArray(m, n);
+Console.Write("Введите кол-во сток таблицы: ");
+int l = Convert.ToInt32(Console.ReadLine());
+Console.Write("Введите кол-во стобцов таблицы: ");
+int k = Convert.ToInt32(Console.ReadLine());
+int[,] newarray = GenerateRandomArray(l, k);
+ShowArray(myarray);
+ShowArray(newarray);
+Console.WriteLine();
+ArraySum(myarray, newarray);
