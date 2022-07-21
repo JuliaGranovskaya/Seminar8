@@ -76,14 +76,10 @@ void ShowArray(int[,] array)
     Console.WriteLine();
  }
 }
-int[,] ChangingArray(int[,] array, int l, int k)
+void ChangingArray(int[,] array, int l, int k)
 {
     int[,] unarray = new int[k,l];
-    if (l != k)
-    {
-        Console.WriteLine("Данный массив не возможно перевернуть, число строк и столбцов должно совпадать");
-    }
-    else
+    if (l == k)
     {
         for (int i = 0; i < k; i++)
         {
@@ -92,8 +88,9 @@ int[,] ChangingArray(int[,] array, int l, int k)
                 unarray[j,i] = array[i,j];
             }
         }
+        ShowArray(unarray);
     }
-    return unarray;
+    else Console.WriteLine("Данный массив не возможно перевернуть, число строк и столбцов должно совпадать");
 }
 
 Console.Write("Введите кол-во сток таблицы: ");
@@ -103,8 +100,7 @@ int n = Convert.ToInt32(Console.ReadLine());
 int[,] myarray = GenerateRandomArray(m, n);
 ShowArray(myarray);
 Console.WriteLine();
-int[,] unmyarray = ChangingArray(myarray, m, n);
-ShowArray(unmyarray);
+ChangingArray(myarray, m, n);
 */
 
 // Составить частотный словарь элементов двумерного массива. Частотный словарь содержит информацию о том, сколько раз встречается элемент входных данных.
@@ -228,6 +224,7 @@ Console.WriteLine();
 FindMin(myarray, m, n);
 */
 
+// Домашнее задание
 // Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива.
 /*
 int[,] GenerateRandomArray(int l, int k)
@@ -253,22 +250,23 @@ void ShowArray(int[,] array)
         Console.WriteLine();
     }
 }
-void FromMaxToMin(int[,] array, int l, int k)
+void FromMaxToMin(int[,] array)
 {
-   for (int i = 0; i < array.GetLength(0); i++)
-   {
-        int max = array[i,0];
-        for (int j = 0; j > array.GetLength(1); j++)
-        {
-            if (max < array[i,j])
+for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
             {
-                array[i,j-1] = array[i,j];
-                array[i,j] = max;
-                max = array[i,j];
-               
+                for (int k = 0; k < array.GetLength(1) - 1; k++)
+                    {
+                        if (array[i, k] < array[i, k + 1])
+                            {
+                                int max = array[i, k + 1];
+                                array[i, k + 1] = array[i, k];
+                                array[i, k] = max;
+                            }
+                    }
             }
-        }
-   }
+    }    
 }
 
 Console.Write("Введите кол-во сток таблицы: ");
@@ -278,7 +276,7 @@ int n = Convert.ToInt32(Console.ReadLine());
 int[,] myarray = GenerateRandomArray(m, n);
 ShowArray(myarray);
 Console.WriteLine();
-FromMaxToMin(myarray, m, n);
+FromMaxToMin(myarray);
 ShowArray(myarray);
 */
 
@@ -323,9 +321,10 @@ void FindMinSum(int[,] array)
    {
         if (sum[i] < sum[min])
         {
-            min = i;
+            min = i+1;
         }
    }
+   Console.WriteLine();
    Console.WriteLine(min);
 }
 
@@ -340,7 +339,7 @@ FindMinSum(myarray);
 */
 
 // Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
-
+/*
 int[,] GenerateRandomArray(int l, int k)
 {
     int[,] array = new int[l, k];
@@ -366,11 +365,23 @@ void ShowArray(int[,] array)
 }
 void ArraySum(int[,] firstArray, int[,] secondArray)
 {
-   if (firstArray.GetLength(0) != secondArray.GetLength(0) || firstArray.GetLength(1) != secondArray.GetLength(1))
-   {
-    Console.WriteLine("Произведение найти не возможно");
-   }
-}
+    if (firstArray.GetLength(0) == secondArray.GetLength(1))
+    {
+    int[,] sumArray = new int[firstArray.GetLength(0),secondArray.GetLength(1)];
+    for (int i = 0; i < firstArray.GetLength(0); i++)
+        {
+            for (int j = 0; j < secondArray.GetLength(1); j++)
+            {
+                for (int k = 0; k < secondArray.GetLength(0); k++)
+                {
+                    sumArray[i,j] += firstArray[i,k] * secondArray[k,j];
+                }
+            }
+        }
+        ShowArray(sumArray);
+    }
+    else Console.WriteLine("Произведение найти не возможно");
+    }
 
 Console.Write("Введите кол-во сток таблицы: ");
 int m = Convert.ToInt32(Console.ReadLine());
@@ -383,6 +394,108 @@ Console.Write("Введите кол-во стобцов таблицы: ");
 int k = Convert.ToInt32(Console.ReadLine());
 int[,] newarray = GenerateRandomArray(l, k);
 ShowArray(myarray);
+Console.WriteLine();
 ShowArray(newarray);
 Console.WriteLine();
 ArraySum(myarray, newarray);
+*/
+// Сформируйте трёхмерный массив из неповторяющихся двузначных чисел. Напишите программу, которая будет построчно выводить массив, добавляя индексы каждого элемента.
+/*
+int[,,] GenerateRandomArray(int l, int k, int n)
+{
+    int[,,] array = new int[l, k, n];
+    for (int i = 0; i < l; i++)
+    {
+        for (int j = 0; j < k; j++)
+        {
+            for (int m = 0; m < n; m++)
+            {
+                array[i, j, m] = new Random().Next(9, 100);
+            }
+        }
+    }
+    return array;
+}
+void ShowArray(int[,,] array)
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            for (int m = 0; m < array.GetLength(2); m++)
+            {
+                Console.Write($"{array[i, j, m]}{(i, j, m)} ");
+            }
+        }
+        Console.WriteLine();
+    }
+}
+Console.Write("Введите ширину массива: ");
+int x = Convert.ToInt32(Console.ReadLine());
+Console.Write("Введите длину массива: ");
+int y = Convert.ToInt32(Console.ReadLine());
+Console.Write("Введите высоту массива: ");
+int z = Convert.ToInt32(Console.ReadLine());
+int[,,] myarray = GenerateRandomArray(x, y, z);
+ShowArray(myarray);
+*/
+// Заполните спирально массив 4 на 4.
+/*
+int[,] GenerateRandomArray()
+{
+    int[,] array = new int[4, 4];
+    int i = 0;
+    int j = 0;
+    int num = 1;
+    for (j = 0; j < 4; j++)
+    {
+        array[i, j] = num;
+        num++;
+    }
+    j = 3;
+    for (i = 1; i < 4; i++)
+    {
+        array[i, j] = num;
+        num++;
+    }
+    i = 3;
+    for (j = 2; j > -1; j = j - 1)
+    {
+        array[i, j] = num;
+        num++;
+    }
+    j = 0;
+    for (i = 2; i > 0; i = i - 1)
+    {
+        array[i, j] = num;
+        num++;
+    }
+    i = 1;
+    for (j = 1; j < 3; j++)
+    {
+        array[i, j] = num;
+        num++;
+    }
+    i = 2;
+    for (j = 2; j > 0; j = j - 1)
+    {
+        array[i, j] = num;
+        num++;
+    }
+    return array;
+}
+void ShowArray(int[,] array)
+{
+    for (int row = 0; row < array.GetLength(0); row++)
+    {
+        for (int column = 0; column < array.GetLength(1); column++)
+        {
+            Console.Write(array[row, column] + " ");
+        }
+        Console.WriteLine();
+    }
+}
+
+int[,] myarray = GenerateRandomArray();
+ShowArray(myarray);
+*/
